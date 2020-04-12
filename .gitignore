@@ -1,0 +1,8 @@
+# Bunch of files to ignore 
+node modules/
+.DS_Store
+.cache/
+dist/
+coverage/
+.vscode/
+.env
