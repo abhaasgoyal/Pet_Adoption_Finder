@@ -1,18 +1,11 @@
-// npm init -y ( auto create )
-// npm install -D ( developer level)
-// prettier ( purely related to spaces - mechanical doesn't care what the code does
-//vs esline ( style - what methods are you using)
-// package lock is when you deploy the code to production
-// npm ci will install exactly the correct version
-// Modules mean that we can use import and export
-const Pet = ({ name, animal, breed }) => {
-  return React.createElement("div", {}, [
-    React.createElement("h1", {}, name),
-    React.createElement("h2", {}, animal),
-    React.createElement("h2", {}, breed),
-  ]);
-};
+// Node modules has a secret folder named bin usme parcel hai. So even if parcel isnt there on main terminal ka $PATH the package.json runs parcel successfully
+// parcel automatically refreshes page in the browser on changes
+// also npm i is on the production side and npm install -D is on the developer side
 
+import React from "react";
+// Import a specific thing cuz parser a thing called tree shaking ( would ulify the tree but make the code faster to run)
+import { render } from "react-dom";
+import { Pet } from "./Pet";
 const App = () => {
   return React.createElement("div", { id: "Something-imp" }, [
     React.createElement("h1", {}, "AdoptMe"),
@@ -33,4 +26,6 @@ const App = () => {
     }),
   ]);
 };
-ReactDOM.render(React.createElement(App), document.getElementById("root"));
+
+// changed the below line
+render(React.createElement(App), document.getElementById("root"));
