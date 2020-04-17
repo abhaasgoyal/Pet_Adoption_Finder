@@ -1,33 +1,42 @@
-import React, { useState } from "react";
-import { ANIMALS } from "@frontendmasters/pet";
+import React, { useState, useEffect } from "react";
+import pet, { ANIMALS } from "@frontendmasters/pet";
 import useDropdown from "./useDropdown";
 
 const SearchParams = () => {
   const [location, setLocation] = useState("Seattle, WA");
   const [breeds, setBreeds] = useState([]);
-  // Custom hooks
-  const [animal, AnimalDropdown] = useDropdown("Animal", "All", ANIMALS);
-  const [breed, BreedDropdown] = useDropdown("Breed", "", breeds);
+  const [animal, AnimalDropdown] = useDropdown("Animal", "dog", ANIMALS);
+  const [breed, BreedDropdown, setBreed] = useDropdown("Breed", "", breeds);
+
+  useEffect(() => {
+    setBreeds([]);
+    setBreed("");
+    pet.breeds(animal).then(({ breeds }) => {
+      const breedStrings = breeds.map(({ name }) => name);
+      setBreeds(breedStrings);
+    }, console.error);
+  }, [animal, setBreeds, setBreed]);
+  // setBreed and setBreeds even though they dont depend but ESLINT is going to demand
+  // useEffect has two parameters the second one being the things it depends on when to run and the first parameter is the asynchronous function which has to be run
+
   return (
     <div className="search-params">
-      <h1> {location}</h1>
       <form>
         <label htmlFor="location">
           Location
           <input
             id="location"
             value={location}
-            placeholder=" Location "
+            placeholder="Location"
             onChange={(e) => setLocation(e.target.value)}
           />
         </label>
         <AnimalDropdown />
         <BreedDropdown />
-        <button> Submit </button>
+        <button>Submit</button>
       </form>
     </div>
   );
 };
 
 export default SearchParams;
-// key is for preventing re rendering - a unque identifier to tell react that I am not going to re render
