@@ -1,30 +1,46 @@
-// breeds is not a dependency since not used inside usefeffect to do a functionality
 import React, { useState, useEffect } from "react";
 import pet, { ANIMALS } from "@frontendmasters/pet";
 import useDropdown from "./useDropdown";
+import Results from "./Results";
+import "regenerator-runtime/runtime.js";
 
 const SearchParams = () => {
-  // Sets below hooks everytime it renders
   const [location, setLocation] = useState("Seattle, WA");
   const [breeds, setBreeds] = useState([]);
+  const [pets, setPets] = useState([]);
   const [animal, AnimalDropdown] = useDropdown("Animal", "dog", ANIMALS);
   const [breed, BreedDropdown, setBreed] = useDropdown("Breed", "", breeds);
+
+  async function requestPets() {
+    const { animals } = await pet.animals({
+      location,
+      breed,
+      type: animal,
+    });
+
+    console.log("animals", animals);
+
+    setPets(animals || []);
+  }
 
   useEffect(() => {
     setBreeds([]);
     setBreed("");
+
     pet.breeds(animal).then(({ breeds }) => {
       const breedStrings = breeds.map(({ name }) => name);
       setBreeds(breedStrings);
     }, console.error);
-  }, [animal, setBreeds, setBreed]);
-  // setBreed and setBreeds even though they dont depend but ESLINT is going to demand
-  // useEffect has two parameters the second one being the things it depends on when to run and the first parameter is the asynchronous function which has to be run
-  // Empty array would mean i don't depend on anything load only once ?
-  // Without [] in [animal, setBreeds, setBreed] stuck in infinite loop
+  }, [animal]);
+
   return (
     <div className="search-params">
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          requestPets();
+        }}
+      >
         <label htmlFor="location">
           Location
           <input
@@ -38,6 +54,7 @@ const SearchParams = () => {
         <BreedDropdown />
         <button>Submit</button>
       </form>
+      <Results pets={pets} />
     </div>
   );
 };
