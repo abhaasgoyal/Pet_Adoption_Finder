@@ -22,7 +22,7 @@ npm install
 npm run dev
 ```
 
-In case the parcel bundler gives an error regarding envinfo.js or any other issues come up, do a clean install and then run
+In case the parcel bundler gives an error regarding envinfo.js or any other issues come up, do a clean install ( for that run the below command)
 
 ```
 npm clean-install
