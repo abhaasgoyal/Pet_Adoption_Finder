@@ -10,7 +10,6 @@ class Details extends React.Component {
   state = { loading: true, showModal: false };
   componentDidMount() {
     // throw new Error("lol");
-    // Error boundary is vv imp in the fact that if error comes up it won't crash the program
     pet.animal(this.props.id).then(({ animal }) => {
       this.setState({
         url: animal.url,
@@ -25,7 +24,6 @@ class Details extends React.Component {
       });
     }, console.error());
   }
-  //Destructuring theme by taking only 1 thing from array and not all the variable and then theme[0]
   toggleModal = () => this.setState({ showModal: !this.state.showModal });
   adopt = () => navigate(this.state.url);
   render() {
@@ -75,8 +73,6 @@ class Details extends React.Component {
     );
   }
 }
-//  <Details props = { props }/> isn't correct cuz this.props.props and change name passing is burdensome
-// Faster way of <Details props.
 export default function DeatilsWithErrorBoundary(props) {
   return (
     <ErrorBoundary>
@@ -84,5 +80,3 @@ export default function DeatilsWithErrorBoundary(props) {
     </ErrorBoundary>
   );
 }
-// Modal renders somewhere else and happens outside root
-// DOM events outside of root but happens correctly

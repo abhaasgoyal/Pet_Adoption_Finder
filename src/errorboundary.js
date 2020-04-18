@@ -1,5 +1,3 @@
-// mostly code from the reactjs.org/docs/error-boundaries.html
-
 import React, { Component } from "react";
 import { Link, Redirect } from "@reach/router";
 
@@ -13,7 +11,6 @@ class ErrorBoundary extends Component {
     // AzureMonitor, trackJS  then sent to the consolidated logging service
   }
 
-  // Will means that it will update the DOM
   componentDidUpdate() {
     if (this.state.hasError) {
       setTimeout(() => this.setState({ redirect: true }), 5000);

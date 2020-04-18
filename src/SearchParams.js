@@ -77,6 +77,3 @@ const SearchParams = () => {
 };
 
 export default SearchParams;
-// Updating the context above
-// setTheme will not change the color in the Details
-// State is living beyond page navigations

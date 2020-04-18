@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "@reach/router";
-// Thats the difference between link and anchor tag that Link tag does not destroy the dom and the statevariables
 export default function Pet({ name, animal, breed, media, location, id }) {
   let hero = "http://placecorgi.com/300/300";
   if (media.length) {
@@ -19,4 +18,3 @@ export default function Pet({ name, animal, breed, media, location, id }) {
     </Link>
   );
 }
-// Other way would be to use navigate

@@ -1,5 +1,3 @@
-// In react data generally moves one way from parent to child
-// One way data flow .. and html return hota
 import React from "react";
 import Pet from "./Pet";
 

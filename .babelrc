@@ -1,6 +1,4 @@
 {
-  // When transpiling react what to do in preset
-  // preset is a group of plugins which is a bunch of transformations
   "presets": ["@babel/preset-react", "@babel/preset-env"],
   // transpiling the code in env specified
   "plugins": ["@babel/plugin-proposal-class-properties"]
