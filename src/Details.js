@@ -1,21 +1,14 @@
 import React from "react";
 import pet from "@frontendmasters/pet";
 import Carousel from "./Carousel";
+import ErrorBoundary from "./errorboundary";
+import ThemeContext from "./ThemeContext";
 
-// Control babel config
 class Details extends React.Component {
-  // Will start to use this the next time
   state = { loading: true };
-  // use above and remove the below lines using babel config ( was a proposal in JS in 2018 but there in 2020)
-  /*
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-    };
-  }*/
-
   componentDidMount() {
+    // throw new Error("lol");
+    // Error boundary is vv imp in the fact that if error comes up it won't crash the program
     pet.animal(this.props.id).then(({ animal }) => {
       this.setState({
         name: animal.name,
@@ -29,7 +22,7 @@ class Details extends React.Component {
       });
     }, console.error());
   }
-
+  //Destructuring theme by taking only 1 thing from array and not all the variable and then theme[0]
   render() {
     if (this.state.loading) {
       return <h1> loading </h1>;
@@ -41,12 +34,24 @@ class Details extends React.Component {
         <div>
           <h1> {name}</h1>
           <h2> {`${animal} - ${breed} - ${location}`}</h2>
-          <button> Adopt {name}</button>
+          <ThemeContext.Consumer>
+            {([theme]) => (
+              <button style={{ backgroundColor: theme }}>Adopt {name}</button>
+            )}
+          </ThemeContext.Consumer>
+
           <p> {description}</p>
         </div>
       </div>
     );
   }
 }
-
-export default Details;
+//  <Details props = { props }/> isn't correct cuz this.props.props and change name passing is burdensome
+// Faster way of <Details props.
+export default function DeatilsWithErrorBoundary(props) {
+  return (
+    <ErrorBoundary>
+      <Details {...props} />
+    </ErrorBoundary>
+  );
+}
