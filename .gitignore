@@ -1,5 +1,5 @@
 # Bunch of files to ignore 
-node modules/
+node_modules/
 .DS_Store
 .cache/
 dist/
